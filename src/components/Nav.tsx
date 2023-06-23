@@ -1,10 +1,16 @@
+"use client"
+import {useState} from 'react'
 import { FaBars } from "react-icons/fa"
+import Menu from "./Menu"
+
 const Nav = () => {
+  const [toggleDropdown, setToggleDropdown] = useState(false)
+
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center relative">
       <div className="flex justify-between items-center py-4 px-2 md:px-4 w-full l:w-3/4">
         <div className="w-[100px] flex justify-start">
-          <FaBars className="cursor-pointer" />
+          <FaBars className="cursor-pointer" onClick={() => setToggleDropdown(prev => !prev)} />
         </div>
         <h1 className="text-mdmd:text-xl font-semibold">
           Full Stack Flashcards
@@ -15,6 +21,7 @@ const Nav = () => {
           </button>
         </div>
       </div>
+     {toggleDropdown && <Menu />}
       <div className="border-b-2 border-sky-500 w-3/4"></div>
     </div>
   )

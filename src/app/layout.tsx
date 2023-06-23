@@ -1,4 +1,5 @@
 import "./globals.css"
+import Nav from "@/components/Nav"
 
 export const metadata = {
   title: "Full Stack Flashcards",
@@ -12,7 +13,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-blue-950 text-slate-50">{children}</body>
+      <body className="bg-blue-950 text-slate-50">
+        <Nav />
+        {children}
+      </body>
     </html>
   )
 }

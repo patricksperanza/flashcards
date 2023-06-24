@@ -1,34 +1,46 @@
 "use client"
 import NewQuestionBtn from "./NewQuestionBtn"
-import { useState } from "react"
-import { questionList } from "@/data/questionData"
+import { useEffect, useState } from "react"
+import { getCards } from "@/utils/getCards"
 
 const Card = () => {
   const [currentQuestion, setCurrentQuestion] = useState({
-    id: 0,
+    _id: "0",
     question: "Welcome",
     answer: "Click New Question to Begin",
   })
+  const [questionList, setQuestionList] = useState([currentQuestion])
   const [displayAnswer, setDisplayAnswer] = useState(true)
+
+  useEffect(() => {
+    const getCardsList = async () => {
+      const list = await getCards()
+      setQuestionList(list)
+    }
+
+    getCardsList()
+  }, [])
 
   const getNewQuestion = () => {
     if (!displayAnswer) return
-    let newQuestion =
-      questionList[Math.floor(Math.random() * questionList.length)]
+    if (questionList.length > 0) {
+      let newQuestion =
+        questionList[Math.floor(Math.random() * questionList.length)]
 
-    if (newQuestion.id === currentQuestion.id) {
-      getNewQuestion()
-      return
+      if (newQuestion._id === currentQuestion._id) {
+        getNewQuestion()
+        return
+      }
+
+      setCurrentQuestion(newQuestion)
+      setDisplayAnswer(false)
     }
-
-    setCurrentQuestion(newQuestion)
-    setDisplayAnswer(false)
   }
 
   return (
     <div className="flex justify-center">
       {/* Card */}
-      <div className="w-[300px] min-h-[460px] bg-slate-900 mt-[20px] rounded border border-slate-100 flex flex-col items-center px-2 text-sm">
+      <div className="w-[300px] min-h-[480px] bg-slate-900 mt-[20px] rounded border border-slate-100 flex flex-col items-center px-2 text-sm">
         {/* Question Section */}
         <div className="flex items-center text-slate-200 py-5 text-center">
           {currentQuestion.question}

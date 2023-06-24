@@ -1,25 +1,16 @@
 "use client"
 import NewQuestionBtn from "./NewQuestionBtn"
-import { useEffect, useState } from "react"
-import { getCards } from "@/utils/getCards"
+import { useState } from "react"
+import { useCardsContext } from "@/context/CardsContext"
 
 const Card = () => {
+  const { questionList } = useCardsContext()
   const [currentQuestion, setCurrentQuestion] = useState({
     _id: "0",
     question: "Welcome",
     answer: "Click New Question to Begin",
   })
-  const [questionList, setQuestionList] = useState([currentQuestion])
   const [displayAnswer, setDisplayAnswer] = useState(true)
-
-  useEffect(() => {
-    const getCardsList = async () => {
-      const list = await getCards()
-      setQuestionList(list)
-    }
-
-    getCardsList()
-  }, [])
 
   const getNewQuestion = () => {
     if (!displayAnswer) return

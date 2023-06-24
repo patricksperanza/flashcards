@@ -1,5 +1,6 @@
 import "./globals.css"
 import Nav from "@/components/Nav"
+import { CardsContextProvider } from "@/context/CardsContext"
 
 export const metadata = {
   title: "Full Stack Flashcards",
@@ -14,8 +15,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-blue-950 text-slate-50">
-        <Nav />
-        {children}
+        <CardsContextProvider>
+          <Nav />
+          {children}
+        </CardsContextProvider>
       </body>
     </html>
   )

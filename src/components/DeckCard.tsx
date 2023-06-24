@@ -1,5 +1,7 @@
 import { AiOutlineEdit } from "react-icons/ai"
 import { BsTrash3 } from "react-icons/bs"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 interface DeckCardProps {
   id: string
@@ -8,7 +10,21 @@ interface DeckCardProps {
 }
 
 const DeckCard = ({ id, question, answer }: DeckCardProps) => {
-  return (
+  const [displayCard, setDisplayCard] = useState(true)
+  const router = useRouter()
+  const handleDelete = async () => {
+    const res = await fetch(`http://localhost:3000/api/cards/delete/${id}`, {
+      method: "DELETE",
+    })
+    const data = await res.json()
+    console.log("Deleted:", data)
+
+    if (res.ok) {
+      setDisplayCard(false)
+    }
+  }
+
+  return displayCard ? (
     <div className="flex justify-between w-[400px] py-4 px-4 min-h-[100px] border-b">
       <div className="flex flex-col justify-center gap-5 w-[300px]">
         <p className="text-slate-500 text-sm">{question}</p>
@@ -16,9 +32,14 @@ const DeckCard = ({ id, question, answer }: DeckCardProps) => {
       </div>
       <div className="flex flex-col justify-center gap-10">
         <AiOutlineEdit className="hover:text-slate-500 cursor-pointer" />
-        <BsTrash3 className="hover:text-slate-500 cursor-pointer" />
+        <BsTrash3
+          className="hover:text-slate-500 cursor-pointer"
+          onClick={handleDelete}
+        />
       </div>
     </div>
+  ) : (
+    <div></div>
   )
 }
 

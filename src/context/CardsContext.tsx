@@ -1,5 +1,11 @@
 "use client"
-import { createContext, useState, useEffect, useContext } from "react"
+import {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  SetStateAction,
+} from "react"
 import { getCards } from "@/utils/getCards"
 
 interface Question {
@@ -8,12 +14,15 @@ interface Question {
   answer: string
 }
 
-interface QuestionContext {
+interface CardsContextType {
   questionList: Question[]
+  setQuestionList: React.Dispatch<SetStateAction<Question[]>>
 }
 
 // Create Cards Context
-export const CardsContext = createContext<QuestionContext | null>(null)
+export const CardsContext = createContext<CardsContextType>(
+  {} as CardsContextType
+)
 
 // Custom hook
 export const useCardsContext = () => {
@@ -32,7 +41,7 @@ export const CardsContextProvider = ({
 }: {
   children: React.ReactNode
 }) => {
-  const [questionList, setQuestionList] = useState([])
+  const [questionList, setQuestionList] = useState<Question[]>([])
 
   useEffect(() => {
     const getCardsList = async () => {
@@ -44,7 +53,7 @@ export const CardsContextProvider = ({
   }, [])
 
   return (
-    <CardsContext.Provider value={{ questionList }}>
+    <CardsContext.Provider value={{ questionList, setQuestionList }}>
       {children}
     </CardsContext.Provider>
   )

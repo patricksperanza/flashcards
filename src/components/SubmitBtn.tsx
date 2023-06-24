@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation"
 import { SetStateAction } from "react"
+import { useCardsContext } from "@/context/CardsContext"
 
 interface SubmitBtnProps {
   newCardData: {
@@ -12,6 +13,7 @@ interface SubmitBtnProps {
 }
 
 const SubmitBtn = ({ newCardData, setNewCardData }: SubmitBtnProps) => {
+  const { questionList, setQuestionList } = useCardsContext()
   const router = useRouter()
   const handleSubmit = async () => {
     const res = await fetch("http://localhost:3000/api/new", {
@@ -25,12 +27,21 @@ const SubmitBtn = ({ newCardData, setNewCardData }: SubmitBtnProps) => {
     console.log(data)
 
     if (res.ok) {
+      setQuestionList((prev) => [
+        ...prev,
+        {
+          _id: "",
+          question: newCardData.question,
+          answer: newCardData.answer,
+        },
+      ])
+
       setNewCardData({
         question: "",
         answer: "",
       })
 
-      router.push("/")
+      router.push("/deck")
     }
   }
 

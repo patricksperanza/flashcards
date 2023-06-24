@@ -1,7 +1,7 @@
 import Card from "@/models/card"
 import { connectToDB } from "@/utils/database"
 
-export async function GET(req) {
+export async function GET(req: Request) {
   try {
     await connectToDB()
 

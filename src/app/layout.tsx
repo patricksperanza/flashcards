@@ -16,8 +16,10 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-blue-950 text-slate-50">
         <CardsContextProvider>
-          <Nav />
-          {children}
+          <div className="max-w-4xl m-auto">
+            <Nav />
+            {children}
+          </div>
         </CardsContextProvider>
       </body>
     </html>

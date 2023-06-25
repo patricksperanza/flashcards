@@ -8,7 +8,7 @@ import {
 } from "react"
 import { getCards } from "@/utils/getCards"
 
-interface Question {
+export interface Question {
   _id: string
   question: string
   answer: string

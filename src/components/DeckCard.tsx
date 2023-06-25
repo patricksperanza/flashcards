@@ -2,6 +2,7 @@ import { AiOutlineEdit } from "react-icons/ai"
 import { BsTrash3 } from "react-icons/bs"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import Link from "next/link"
 
 interface DeckCardProps {
   id: string
@@ -31,7 +32,9 @@ const DeckCard = ({ id, question, answer }: DeckCardProps) => {
         <p className="text-[10px]">{answer}</p>
       </div>
       <div className="flex flex-col justify-center gap-10">
-        <AiOutlineEdit className="hover:text-slate-500 cursor-pointer" />
+        <Link href={`/edit/${id}`}>
+          <AiOutlineEdit className="hover:text-slate-500 cursor-pointer" />
+        </Link>
         <BsTrash3
           className="hover:text-slate-500 cursor-pointer"
           onClick={handleDelete}

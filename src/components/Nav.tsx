@@ -1,10 +1,30 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { FaBars } from "react-icons/fa"
 import Menu from "./Menu"
 import Link from "next/link"
+import { signIn, signOut, useSession, getProviders } from "next-auth/react"
+import { LiteralUnion, ClientSafeProvider } from "next-auth/react"
+import { BuiltInProviderType } from "next-auth/providers"
 
 const Nav = () => {
+  const { data: session } = useSession()
+  const [providers, setProviders] = useState<Record<
+    LiteralUnion<BuiltInProviderType, string>,
+    ClientSafeProvider
+  > | null>(null)
+
+  console.log(session)
+
+  useEffect(() => {
+    const setUpProviders = async () => {
+      const response = await getProviders()
+      setProviders(response)
+    }
+
+    setUpProviders()
+  }, [])
+
   const [toggleDropdown, setToggleDropdown] = useState(false)
 
   return (
@@ -22,12 +42,44 @@ const Nav = () => {
           </h1>
         </Link>
         <div className="w-[100px] flex justify-end">
-          <button className="border border-blue-500 px-5 py-1 rounded text-[10px] hover:bg-blue-500 ease-in duration-100 active:bg-blue-600">
-            Log In
-          </button>
+          {session ? (
+            <>
+              <button
+                className="border border-blue-500 px-5 py-1 rounded text-[10px] bg-blue-500 ease-in duration-100 active:bg-blue-600"
+                onClick={() => signOut()}
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              {providers ? (
+                Object.values(providers).map((provider) => {
+                  return (
+                    <button
+                      type="button"
+                      key={provider.name}
+                      onClick={() => {
+                        signIn(provider.id)
+                      }}
+                      className="border border-blue-500 px-5 py-1 rounded text-[10px] hover:bg-blue-500 ease-in duration-100 active:bg-blue-600"
+                    >
+                      Sign in
+                    </button>
+                  )
+                })
+              ) : (
+                <div className="border border-blue-500 px-5 py-1 rounded text-[10px] hover:bg-blue-500 ease-in duration-100 active:bg-blue-600">
+                  ...
+                </div>
+              )}
+            </>
+          )}
         </div>
+
+        {toggleDropdown && <Menu setToggleDropdown={setToggleDropdown} />}
       </div>
-      {toggleDropdown && <Menu setToggleDropdown={setToggleDropdown} />}
+
       <div className="border-b-2 border-sky-500 w-3/4"></div>
     </div>
   )

@@ -29,7 +29,7 @@ const SubmitChangesBtn = ({ currentQuestion }: SubmitChangesBtnProps) => {
     )
 
     const data = await res.json()
-    console.log(data)
+    console.log("Edited:", data)
 
     if (res.ok) {
       setQuestionList((prev) => {

@@ -7,6 +7,7 @@ import {
   SetStateAction,
 } from "react"
 import { getCards } from "@/utils/getCards"
+import { useSession } from "next-auth/react"
 
 export interface Question {
   _id: string
@@ -41,16 +42,21 @@ export const CardsContextProvider = ({
 }: {
   children: React.ReactNode
 }) => {
+  const { data: session } = useSession()
   const [questionList, setQuestionList] = useState<Question[]>([])
 
   useEffect(() => {
     const getCardsList = async () => {
-      const list = await getCards()
-      setQuestionList(list)
+      if (session?.user !== undefined) {
+        const list = await getCards(session.user.email as string)
+        setQuestionList(list)
+      }
     }
 
     getCardsList()
-  }, [])
+  }, [session?.user])
+
+  console.log(questionList)
 
   return (
     <CardsContext.Provider value={{ questionList, setQuestionList }}>

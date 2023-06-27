@@ -12,7 +12,7 @@ const Deck = () => {
       <AddNewCardBtn />
       {questionList.map((item) => (
         <DeckCard
-          key={item._id}
+          key={item.question}
           question={item.question}
           answer={item.answer}
           id={item._id}

@@ -14,7 +14,7 @@ const Nav = () => {
     ClientSafeProvider
   > | null>(null)
 
-  console.log(session)
+  console.log("Session:", session)
 
   useEffect(() => {
     const setUpProviders = async () => {
@@ -45,7 +45,7 @@ const Nav = () => {
           {session ? (
             <>
               <button
-                className="border border-blue-500 px-5 py-1 rounded text-[10px] bg-blue-500 ease-in duration-100 active:bg-blue-600"
+                className="border border-blue-500 px-5 py-1 rounded text-[10px] hover:bg-blue-500 ease-in duration-100 active:bg-blue-600"
                 onClick={() => signOut()}
               >
                 Sign Out
@@ -62,7 +62,7 @@ const Nav = () => {
                       onClick={() => {
                         signIn(provider.id)
                       }}
-                      className="border border-blue-500 px-5 py-1 rounded text-[10px] hover:bg-blue-500 ease-in duration-100 active:bg-blue-600"
+                      className="border border-blue-500 px-5 py-1 rounded text-[10px] bg-blue-500 ease-in duration-100 active:bg-blue-600"
                     >
                       Sign in
                     </button>

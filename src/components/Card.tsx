@@ -8,7 +8,7 @@ const Card = () => {
   const [currentQuestion, setCurrentQuestion] = useState({
     _id: "0",
     question: "Welcome",
-    answer: "Click New Question to Begin",
+    answer: "Sign in to add and study your Cards!",
   })
   const [displayAnswer, setDisplayAnswer] = useState(true)
 

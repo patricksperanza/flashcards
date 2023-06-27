@@ -3,6 +3,7 @@ import { BsTrash3 } from "react-icons/bs"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import Link from "next/link"
+import { baseUrl } from "@/utils/baseUrl"
 
 interface DeckCardProps {
   id: string
@@ -14,7 +15,7 @@ const DeckCard = ({ id, question, answer }: DeckCardProps) => {
   const [displayCard, setDisplayCard] = useState(true)
   const router = useRouter()
   const handleDelete = async () => {
-    const res = await fetch(`http://localhost:3000/api/cards/delete/${id}`, {
+    const res = await fetch(`${baseUrl}/api/cards/delete/${id}`, {
       method: "DELETE",
     })
     const data = await res.json()

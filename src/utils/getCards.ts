@@ -1,5 +1,7 @@
+import { baseUrl } from "./baseUrl"
+
 export async function getCards(email: string) {
-    const res = await fetch("http://localhost:3000/api/cards", {
+    const res = await fetch(`${baseUrl}/api/cards`, {
       method: 'POST',
       headers: {
         "Content-Type": 'application/json'

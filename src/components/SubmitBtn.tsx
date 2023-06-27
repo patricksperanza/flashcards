@@ -2,6 +2,7 @@ import { useRouter } from "next/navigation"
 import { SetStateAction } from "react"
 import { useCardsContext } from "@/context/CardsContext"
 import { useSession } from "next-auth/react"
+import { baseUrl } from "@/utils/baseUrl"
 
 interface SubmitBtnProps {
   newCardData: {
@@ -20,7 +21,7 @@ const SubmitBtn = ({ newCardData, setNewCardData }: SubmitBtnProps) => {
 
   const handleSubmit = async () => {
     if (session?.user) {
-      const res = await fetch("http://localhost:3000/api/new", {
+      const res = await fetch(`${baseUrl}/api/new`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

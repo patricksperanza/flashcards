@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation"
-import { SetStateAction } from "react"
+import { baseUrl } from "@/utils/baseUrl"
 import { useCardsContext } from "@/context/CardsContext"
 
 interface Question {
@@ -18,7 +18,7 @@ const SubmitChangesBtn = ({ currentQuestion }: SubmitChangesBtnProps) => {
 
   const handleSubmit = async () => {
     const res = await fetch(
-      `http://localhost:3000/api/cards/edit/${currentQuestion._id}`,
+      `${baseUrl}/api/cards/edit/${currentQuestion._id}`,
       {
         method: "POST",
         headers: {

@@ -1,1 +1,1 @@
-export const baseUrl = 'https://next-flashcards.vercel.app'
+export const baseUrl = 'flashcards-pyvt2uz7p-patricksperanza.vercel.app'

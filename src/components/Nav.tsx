@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import { FaBars } from "react-icons/fa"
 import Menu from "./Menu"
+import Image from "next/image"
 import Link from "next/link"
 import { signIn, signOut, useSession, getProviders } from "next-auth/react"
 import { LiteralUnion, ClientSafeProvider } from "next-auth/react"
@@ -25,7 +26,8 @@ const Nav = () => {
     setUpProviders()
   }, [])
 
-  const [toggleDropdown, setToggleDropdown] = useState(false)
+  const [toggleMenuDropdown, setToggleMenuDropdown] = useState(false)
+  const [toggleLogoutDropdown, setToggleLogoutDropdown] = useState(false)
 
   return (
     <div className="flex flex-col items-center relative">
@@ -33,7 +35,7 @@ const Nav = () => {
         <div className="w-[100px] flex justify-start">
           <FaBars
             className="cursor-pointer"
-            onClick={() => setToggleDropdown((prev) => !prev)}
+            onClick={() => setToggleMenuDropdown((prev) => !prev)}
           />
         </div>
         <Link href="/">
@@ -44,12 +46,27 @@ const Nav = () => {
         <div className="w-[100px] flex justify-end">
           {session ? (
             <>
-              <button
-                className="border border-blue-500 px-5 py-1 rounded text-[10px] hover:bg-blue-500 ease-in duration-100 active:bg-blue-600"
-                onClick={() => signOut()}
-              >
-                Sign Out
-              </button>
+              {session.user?.image !== null &&
+                session.user?.image !== undefined && (
+                  <div className="relative">
+                    <Image
+                      src={session?.user?.image}
+                      alt="user image"
+                      width={28}
+                      height={28}
+                      className="rounded-full cursor-pointer"
+                      onClick={() => setToggleLogoutDropdown((prev) => !prev)}
+                    />
+                    {toggleLogoutDropdown && (
+                      <button
+                        className="absolute top-8 right-1 text-[10px] w-20 py-2 px-4 border rounded cursor-pointer bg-slate-800 hover:bg-slate-900"
+                        onClick={() => signOut()}
+                      >
+                        Sign Out
+                      </button>
+                    )}
+                  </div>
+                )}
             </>
           ) : (
             <>
@@ -77,7 +94,9 @@ const Nav = () => {
           )}
         </div>
 
-        {toggleDropdown && <Menu setToggleDropdown={setToggleDropdown} />}
+        {toggleMenuDropdown && (
+          <Menu setToggleMenuDropdown={setToggleMenuDropdown} />
+        )}
       </div>
 
       <div className="border-b-2 border-sky-500 w-3/4"></div>

@@ -1,16 +1,27 @@
 "use client"
 import NewQuestionBtn from "./NewQuestionBtn"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useCardsContext } from "@/context/CardsContext"
+import { useSession } from "next-auth/react"
 
 const Card = () => {
+  const { data: session } = useSession()
   const { questionList } = useCardsContext()
   const [currentQuestion, setCurrentQuestion] = useState({
     _id: "0",
     question: "Welcome",
-    answer: "Sign in to add and study your Cards!",
+    answer: "Sign in to create and access cards",
   })
   const [displayAnswer, setDisplayAnswer] = useState(true)
+
+  useEffect(() => {
+    if (session && currentQuestion._id === "0") {
+      setCurrentQuestion((prev) => ({
+        ...prev,
+        answer: "Click New Question to begin",
+      }))
+    }
+  }, [session])
 
   const getNewQuestion = () => {
     if (!displayAnswer) return

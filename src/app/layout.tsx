@@ -1,5 +1,6 @@
 import "./globals.css"
 import Nav from "@/components/Nav"
+import Footer from "@/components/Footer"
 import Provider from "@/components/Provider"
 
 import { CardsContextProvider } from "@/context/CardsContext"
@@ -19,10 +20,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="bg-blue-950 text-slate-50">
         <Provider>
           <CardsContextProvider>
-            <div className="max-w-4xl m-auto">
+            <div className="relative max-w-4xl min-h-screen m-auto">
               <Nav />
               {children}
             </div>
+            <Footer />
           </CardsContextProvider>
         </Provider>
       </body>

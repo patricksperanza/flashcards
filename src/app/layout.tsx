@@ -20,11 +20,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="bg-blue-950 text-slate-50">
         <Provider>
           <CardsContextProvider>
-            <div className="relative max-w-4xl min-h-screen m-auto">
-              <Nav />
-              {children}
+            <div className="min-h-screen overflow-y-auto relative">
+              <div className="max-w-4xl  m-auto ">
+                <Nav />
+                {children}
+              </div>
+              <Footer />
             </div>
-            <Footer />
           </CardsContextProvider>
         </Provider>
       </body>

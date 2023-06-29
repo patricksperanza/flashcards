@@ -8,7 +8,7 @@ const Deck = () => {
   const { questionList } = useCardsContext()
 
   return (
-    <div className="flex flex-col items-center mt-10">
+    <div className="flex flex-col items-center mt-10 mb-24 min-h-screen">
       <AddNewCardBtn />
       {questionList.map((item) => (
         <DeckCard

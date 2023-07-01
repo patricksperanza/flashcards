@@ -1,5 +1,5 @@
 "use client"
-import { useCardsContext, Question } from "@/context/CardsContext"
+import { useCardsContext } from "@/context/CardsContext"
 import { useState } from "react"
 import SubmitChangesBtn from "@/components/SubmitChangesBtn"
 

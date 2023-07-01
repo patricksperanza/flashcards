@@ -42,7 +42,7 @@ const Card = () => {
   return (
     <div className="flex justify-center">
       {/* Card */}
-      <div className="w-[300px] min-h-[480px] bg-slate-900 mt-[20px] rounded border border-slate-100 flex flex-col items-center px-2 text-sm">
+      <div className="w-[300px] min-h-[500px] bg-slate-900 mt-[20px] rounded border border-slate-100 flex flex-col items-center px-2 text-sm">
         {/* Question Section */}
         <div className="flex items-center text-slate-200 py-5 text-center">
           {currentQuestion.question}

@@ -1,12 +1,7 @@
 import { useRouter } from "next/navigation"
 import { baseUrl } from "@/utils/baseUrl"
 import { useCardsContext } from "@/context/CardsContext"
-
-interface Question {
-  _id: string
-  question: string
-  answer: string
-}
+import { Question } from "@/types/types"
 
 interface SubmitChangesBtnProps {
   currentQuestion: Question

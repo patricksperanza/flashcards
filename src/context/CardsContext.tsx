@@ -8,12 +8,7 @@ import {
 } from "react"
 import { getCards } from "@/utils/getCards"
 import { useSession } from "next-auth/react"
-
-export interface Question {
-  _id: string
-  question: string
-  answer: string
-}
+import { Question } from "@/types/types"
 
 interface CardsContextType {
   questionList: Question[]

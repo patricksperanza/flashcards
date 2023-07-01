@@ -34,6 +34,7 @@ const SubmitBtn = ({ newCardData, setNewCardData }: SubmitBtnProps) => {
       const data = await res.json()
       console.log("Added:", data)
 
+      // Make a new call to the database and update the question list
       if (res.ok) {
         setQuestionList((prev) => [
           ...prev,

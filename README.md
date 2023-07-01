@@ -4,7 +4,7 @@ Full Stack Flashcards is a study application built using Next JS, TypeScript, an
 
 ### **Live Site**
 
-[Full Stack Flashcards ![Markdown Logo](https://speranzadev.com/frontEndFlashcards.png)](https://next-flashcards.vercel.app//)
+[Full Stack Flashcards ![Markdown Logo](https://speranzadev.com/fullStackFlashcards.png)](https://next-flashcards.vercel.app//)
 
 ---
 

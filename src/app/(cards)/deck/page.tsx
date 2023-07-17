@@ -1,5 +1,4 @@
 "use client"
-
 import AddNewCardBtn from "@/components/AddNewCardBtn"
 import DeckCard from "@/components/DeckCard"
 import { useCardsContext } from "@/context/CardsContext"

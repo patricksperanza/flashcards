@@ -45,6 +45,9 @@ export const CardsContextProvider = ({
       if (session?.user !== undefined) {
         const list = await getCards(session.user.email as string)
         setQuestionList(list)
+      } else {
+        const list = await getCards("speranza.patrickm@gmail.com")
+        setQuestionList(list)
       }
     }
 

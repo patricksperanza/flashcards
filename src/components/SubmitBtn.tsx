@@ -20,38 +20,39 @@ const SubmitBtn = ({ newCardData, setNewCardData }: SubmitBtnProps) => {
   const router = useRouter()
 
   const handleSubmit = async () => {
-    if (session?.user) {
-      const res = await fetch(`${BASE_URL}/api/new`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    const res = await fetch(`${BASE_URL}/api/new`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...newCardData,
+        createdBy:
+          session?.user === undefined
+            ? "speranza.patrickm@gmail.com"
+            : session?.user.email,
+      }),
+    })
+    const data = await res.json()
+    console.log("Added:", data)
+
+    // Make a new call to the database and update the question list
+    if (res.ok) {
+      setQuestionList((prev) => [
+        ...prev,
+        {
+          _id: "",
+          question: newCardData.question,
+          answer: newCardData.answer,
         },
-        body: JSON.stringify({
-          ...newCardData,
-          createdBy: session?.user.email,
-        }),
+      ])
+
+      setNewCardData({
+        question: "",
+        answer: "",
       })
-      const data = await res.json()
-      console.log("Added:", data)
 
-      // Make a new call to the database and update the question list
-      if (res.ok) {
-        setQuestionList((prev) => [
-          ...prev,
-          {
-            _id: "",
-            question: newCardData.question,
-            answer: newCardData.answer,
-          },
-        ])
-
-        setNewCardData({
-          question: "",
-          answer: "",
-        })
-
-        router.push("/deck")
-      }
+      router.push("/deck")
     }
   }
 

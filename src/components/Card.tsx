@@ -10,7 +10,8 @@ const Card = () => {
   const [currentQuestion, setCurrentQuestion] = useState({
     _id: "0",
     question: "Welcome",
-    answer: "Sign in to create and access cards",
+    answer:
+      'Sign in to create your own cards or click "New Question" to continue as a guest.',
   })
   const [displayAnswer, setDisplayAnswer] = useState(true)
 

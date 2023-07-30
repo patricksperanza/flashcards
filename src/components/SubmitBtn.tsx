@@ -1,23 +1,25 @@
-import { useRouter } from "next/navigation"
-import { SetStateAction } from "react"
-import { useCardsContext } from "@/context/CardsContext"
-import { useSession } from "next-auth/react"
-import { BASE_URL } from "@/utils/BASE_URL"
+import { useRouter } from "next/navigation";
+import { SetStateAction } from "react";
+import { useCardsContext } from "@/context/CardsContext";
+import { useSession } from "next-auth/react";
+import { BASE_URL } from "@/utils/BASE_URL";
 
 interface SubmitBtnProps {
   newCardData: {
-    question: string
-    answer: string
-  }
+    question: string;
+    answer: string;
+  };
   setNewCardData: React.Dispatch<
     SetStateAction<{ question: string; answer: string }>
-  >
+  >;
 }
 
 const SubmitBtn = ({ newCardData, setNewCardData }: SubmitBtnProps) => {
-  const { data: session } = useSession()
-  const { questionList, setQuestionList } = useCardsContext()
-  const router = useRouter()
+  const { data: session } = useSession();
+  const { questionList, setQuestionList } = useCardsContext();
+  const router = useRouter();
+
+  // Sends a new card to the API to be added to the database
 
   const handleSubmit = async () => {
     const res = await fetch(`${BASE_URL}/api/new`, {
@@ -29,12 +31,12 @@ const SubmitBtn = ({ newCardData, setNewCardData }: SubmitBtnProps) => {
         ...newCardData,
         createdBy:
           session?.user === undefined
-            ? "speranza.patrickm@gmail.com"
+            ? "guest@guestaccount.com"
             : session?.user.email,
       }),
-    })
-    const data = await res.json()
-    console.log("Added:", data)
+    });
+    const data = await res.json();
+    console.log("Added:", data);
 
     // Make a new call to the database and update the question list
     if (res.ok) {
@@ -45,25 +47,25 @@ const SubmitBtn = ({ newCardData, setNewCardData }: SubmitBtnProps) => {
           question: newCardData.question,
           answer: newCardData.answer,
         },
-      ])
+      ]);
 
       setNewCardData({
         question: "",
         answer: "",
-      })
+      });
 
-      router.push("/deck")
+      router.push("/deck");
     }
-  }
+  };
 
   return (
     <div
-      className="block m-auto w-[300px] bg-blue-500 px-6 py-2 rounded text-xs  active:bg-blue-600 ease-in duration-100 cursor-pointer text-center"
+      className="m-auto block w-[300px] cursor-pointer rounded bg-blue-500 px-6 py-2  text-center text-xs duration-100 ease-in active:bg-blue-600"
       onClick={handleSubmit}
     >
       Submit
     </div>
-  )
-}
+  );
+};
 
-export default SubmitBtn
+export default SubmitBtn;

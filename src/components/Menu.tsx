@@ -1,9 +1,9 @@
-import Link from "next/link"
-import { AiOutlineHome, AiOutlineFileAdd } from "react-icons/ai"
-import { BsCardList } from "react-icons/bs"
+import Link from "next/link";
+import { AiOutlineHome, AiOutlineFileAdd } from "react-icons/ai";
+import { BsCardList } from "react-icons/bs";
 
 interface MenuProps {
-  setToggleMenuDropdown: React.Dispatch<React.SetStateAction<boolean>>
+  setToggleMenuDropdown: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Menu = ({ setToggleMenuDropdown }: MenuProps) => {
@@ -11,7 +11,7 @@ const Menu = ({ setToggleMenuDropdown }: MenuProps) => {
     <div className="absolute left-1 top-10 flex flex-col rounded border bg-slate-800">
       <Link
         href="/"
-        className="w-full flex gap-2 items-center py-2 px-4 border-b cursor-pointer hover:bg-slate-900"
+        className="flex w-full cursor-pointer items-center gap-2 border-b px-4 py-2 hover:bg-slate-900"
         onClick={() => setToggleMenuDropdown(false)}
       >
         <AiOutlineHome />
@@ -20,7 +20,7 @@ const Menu = ({ setToggleMenuDropdown }: MenuProps) => {
 
       <Link
         href="/deck"
-        className="w-full flex gap-2 items-center py-2 px-4 border-b cursor-pointer hover:bg-slate-900"
+        className="flex w-full cursor-pointer items-center gap-2 border-b px-4 py-2 hover:bg-slate-900"
         onClick={() => setToggleMenuDropdown(false)}
       >
         <BsCardList />
@@ -28,14 +28,14 @@ const Menu = ({ setToggleMenuDropdown }: MenuProps) => {
       </Link>
       <Link
         href="/add"
-        className="w-full flex gap-2 items-center py-2 px-4 border-b cursor-pointer hover:bg-slate-900"
+        className="flex w-full cursor-pointer items-center gap-2 border-b px-4 py-2 hover:bg-slate-900"
         onClick={() => setToggleMenuDropdown(false)}
       >
         <AiOutlineFileAdd />
         <span>New Card</span>
       </Link>
     </div>
-  )
-}
+  );
+};
 
-export default Menu
+export default Menu;

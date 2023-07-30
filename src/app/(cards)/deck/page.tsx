@@ -1,13 +1,13 @@
-"use client"
-import AddNewCardBtn from "@/components/AddNewCardBtn"
-import DeckCard from "@/components/DeckCard"
-import { useCardsContext } from "@/context/CardsContext"
+"use client";
+import AddNewCardBtn from "@/components/AddNewCardBtn";
+import DeckCard from "@/components/DeckCard";
+import { useCardsContext } from "@/context/CardsContext";
 
 const Deck = () => {
-  const { questionList } = useCardsContext()
+  const { questionList } = useCardsContext();
 
   return (
-    <div className="flex flex-col items-center mt-10 mb-24 min-h-screen">
+    <div className="mb-24 mt-10 flex min-h-screen flex-col items-center">
       <AddNewCardBtn />
       {questionList.map((item) => (
         <DeckCard
@@ -18,7 +18,7 @@ const Deck = () => {
         />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default Deck
+export default Deck;

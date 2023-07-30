@@ -29,6 +29,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "env.d.ts"
-, "src/app/api/auth/[...nextauth]/route.ts"  ],
+, "src/app/api/auth/[...nextauth]/route.ts", "prettier.config.js"  ],
   "exclude": ["node_modules"]
 }

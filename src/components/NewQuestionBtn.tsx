@@ -1,16 +1,16 @@
 interface NewQuestionBtnProps {
-  getNewQuestion: () => void
+  getNewQuestion: () => void;
 }
 
 const NewQuestionBtn = ({ getNewQuestion }: NewQuestionBtnProps) => {
   return (
     <div
-      className="absolute bottom-2 left-[50%] ml-[-140px] block m-auto w-[280px] bg-blue-500 px-6 py-2 rounded text-xs  active:bg-blue-600 ease-in duration-100 cursor-pointer text-center"
+      className="absolute bottom-2 left-[50%] m-auto ml-[-140px] block w-[280px] cursor-pointer rounded bg-blue-500 px-6 py-2  text-center text-xs duration-100 ease-in active:bg-blue-600"
       onClick={getNewQuestion}
     >
       New Question
     </div>
-  )
-}
+  );
+};
 
-export default NewQuestionBtn
+export default NewQuestionBtn;

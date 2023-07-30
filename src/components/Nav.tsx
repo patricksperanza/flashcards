@@ -1,38 +1,36 @@
-"use client"
-import { useState, useEffect } from "react"
-import { FaBars } from "react-icons/fa"
-import Menu from "./Menu"
-import Image from "next/image"
-import Link from "next/link"
-import { signIn, signOut, useSession, getProviders } from "next-auth/react"
-import { LiteralUnion, ClientSafeProvider } from "next-auth/react"
-import { BuiltInProviderType } from "next-auth/providers"
+"use client";
+import { useState, useEffect } from "react";
+import { FaBars } from "react-icons/fa";
+import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import { LiteralUnion, ClientSafeProvider } from "next-auth/react";
+import { BuiltInProviderType } from "next-auth/providers";
+import Image from "next/image";
+import Link from "next/link";
+import Menu from "./Menu";
 
 const Nav = () => {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
+  const [toggleMenuDropdown, setToggleMenuDropdown] = useState(false);
+  const [toggleLogoutDropdown, setToggleLogoutDropdown] = useState(false);
   const [providers, setProviders] = useState<Record<
     LiteralUnion<BuiltInProviderType, string>,
     ClientSafeProvider
-  > | null>(null)
+  > | null>(null);
 
-  console.log("Session:", session)
-
+  // Get the Providers from Next Auth
   useEffect(() => {
     const setUpProviders = async () => {
-      const response = await getProviders()
-      setProviders(response)
-    }
+      const response = await getProviders();
+      setProviders(response);
+    };
 
-    setUpProviders()
-  }, [])
-
-  const [toggleMenuDropdown, setToggleMenuDropdown] = useState(false)
-  const [toggleLogoutDropdown, setToggleLogoutDropdown] = useState(false)
+    setUpProviders();
+  }, []);
 
   return (
-    <div className="flex flex-col items-center relative">
-      <div className="flex justify-between items-center py-4 px-2 md:px-4 w-full l:w-3/4">
-        <div className="w-[100px] flex justify-start">
+    <div className="relative flex flex-col items-center">
+      <div className="l:w-3/4 flex w-full items-center justify-between px-2 py-4 md:px-4">
+        <div className="flex w-[100px] justify-start">
           <FaBars
             className="cursor-pointer"
             onClick={() => setToggleMenuDropdown((prev) => !prev)}
@@ -43,7 +41,7 @@ const Nav = () => {
             Full Stack Flashcards
           </h1>
         </Link>
-        <div className="w-[100px] flex justify-end">
+        <div className="flex w-[100px] justify-end">
           {session ? (
             <>
               {session.user?.image !== null &&
@@ -54,12 +52,12 @@ const Nav = () => {
                       alt="user image"
                       width={28}
                       height={28}
-                      className="rounded-full cursor-pointer"
+                      className="cursor-pointer rounded-full"
                       onClick={() => setToggleLogoutDropdown((prev) => !prev)}
                     />
                     {toggleLogoutDropdown && (
                       <button
-                        className="absolute top-8 right-1 text-[10px] w-20 py-2 px-4 border rounded cursor-pointer bg-slate-800 hover:bg-slate-900"
+                        className="absolute right-1 top-8 w-20 cursor-pointer rounded border bg-slate-800 px-4 py-2 text-[10px] hover:bg-slate-900"
                         onClick={() => signOut()}
                       >
                         Sign Out
@@ -77,16 +75,16 @@ const Nav = () => {
                       type="button"
                       key={provider.name}
                       onClick={() => {
-                        signIn(provider.id)
+                        signIn(provider.id);
                       }}
-                      className="border border-blue-500 px-5 py-1 rounded text-[10px] bg-blue-500 ease-in duration-100 active:bg-blue-600"
+                      className="rounded border border-blue-500 bg-blue-500 px-5 py-1 text-[10px] duration-100 ease-in active:bg-blue-600"
                     >
                       Sign in
                     </button>
-                  )
+                  );
                 })
               ) : (
-                <div className="border border-blue-500 px-5 py-1 rounded text-[10px] hover:bg-blue-500 ease-in duration-100 active:bg-blue-600">
+                <div className="rounded border border-blue-500 px-5 py-1 text-[10px] duration-100 ease-in hover:bg-blue-500 active:bg-blue-600">
                   ...
                 </div>
               )}
@@ -99,9 +97,9 @@ const Nav = () => {
         )}
       </div>
 
-      <div className="border-b-2 border-sky-500 w-3/4"></div>
+      <div className="w-3/4 border-b-2 border-sky-500"></div>
     </div>
-  )
-}
+  );
+};
 
-export default Nav
+export default Nav;

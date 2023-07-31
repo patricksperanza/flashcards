@@ -8,8 +8,9 @@ export async function POST(req: Request) {
     await connectToDB()
     const newCard = new Card(card)
     await newCard.save()
+    const cards = await Card.find()
 
-    return new Response(JSON.stringify(newCard), { status: 201 })
+    return new Response(JSON.stringify(cards), { status: 201 })
   } catch (error) {
     return new Response("Failed to create new card", { status: 500 })
   }

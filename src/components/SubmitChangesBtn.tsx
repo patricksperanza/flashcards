@@ -24,14 +24,9 @@ const SubmitChangesBtn = ({ currentQuestion }: SubmitChangesBtnProps) => {
     );
 
     const data = await res.json();
-    console.log("Edited:", data);
 
     if (res.ok) {
-      setQuestionList((prev) => {
-        return prev.map((item) => {
-          return item._id === currentQuestion._id ? currentQuestion : item;
-        });
-      });
+      setQuestionList(data);
       router.push("/deck");
     }
   };

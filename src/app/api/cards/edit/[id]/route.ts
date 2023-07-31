@@ -8,8 +8,9 @@ export async function POST(req: Request) {
     const {_id, question, answer } = await req.json()
 
     const res = await Card.findByIdAndUpdate(_id, {_id, question, answer})
+    const cards = await Card.find()
 
-    return new Response(JSON.stringify(res), { status: 200 })
+    return new Response(JSON.stringify(cards), { status: 200 })
   } catch (error) {
     return new Response("Failed to update card", { status: 500 })
   }
